@@ -3,4 +3,5 @@ sealed class Face {
     object BOTTOM : Face()
     object RIGHT: Face()
     object LEFT: Face()
+    object FRONT: Face()
 }
