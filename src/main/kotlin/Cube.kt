@@ -7,6 +7,7 @@ data class Cube(val faces: List<String>) {
         is RIGHT -> rotateZ(1).rotateTopSlice(times).rotateZ(-1)
         is LEFT -> rotateZ(-1).rotateTopSlice(times).rotateZ(1)
         is FRONT -> rotateX(-1).rotateTopSlice(times).rotateX(1)
+        is BACK -> rotateX(1).rotateTopSlice(times).rotateX(-1)
     }
 
     fun rotateX(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {

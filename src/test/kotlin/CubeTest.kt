@@ -256,6 +256,38 @@ internal class CubeTest {
                 )
             }
         }
+
+        @Nested
+        @DisplayName("Rotating the back slice")
+        inner class RotatingTheBackSlice {
+            @Test
+            fun `can rotate the back slice one quarter turn clockwise`() {
+                assertThat(testCube.rotateSlice(BACK, -1).faces).isEqualTo(
+                    listOf(
+                        "UX!DEFGHI", // top
+                        "JKLMNOPQR", // front
+                        "ST?VWzYZy", // right
+                        "gdahebifc", // back
+                        "CklBnoAqr", // left
+                        "stuvwxjmp"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the back slice one quarter turn anti-clockwise`() {
+                assertThat(testCube.rotateSlice(BACK, 1).faces).isEqualTo(
+                    listOf(
+                        "pmjDEFGHI", // top
+                        "JKLMNOPQR", // front
+                        "STAVWBYZC", // right
+                        "cfibehadg", // back
+                        "yklzno?qr", // left
+                        "stuvwx!XU"  // bottom
+                    )
+                )
+            }
+        }
     }
 
     @Nested
