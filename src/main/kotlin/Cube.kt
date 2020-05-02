@@ -15,7 +15,7 @@ data class Cube(val faces: List<String>) {
     )
 }
 
-private fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T =
+private tailrec fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T =
     if (n == 0) {
         this
     } else {
