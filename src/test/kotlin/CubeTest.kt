@@ -1,3 +1,5 @@
+import Face.BOTTOM
+import Face.TOP
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.DisplayName
@@ -17,112 +19,150 @@ internal class CubeTest {
     )
 
     @Nested
-    @DisplayName("Rotating the top slice")
-    inner class RotatingTheTopSlice {
-
+    @DisplayName("Rotating slices")
+    inner class RotatingSlices {
         @Nested
-        @DisplayName("Anti-clockwise")
-        inner class AntiClockwise {
+        @DisplayName("Rotating the top slice")
+        inner class RotatingTheTopSlice {
 
-            @Test
-            fun `can rotate top slice one quarter-turn anti-clockwise`() {
-                assertThat(testCube.rotateTopSlice(1).faces).isEqualTo(
-                    listOf(
-                        "CFIBEHADG", // top
-                        "jklMNOPQR", // front
-                        "JKLVWXYZ!", // right
-                        "STUdefghi", // back
-                        "abcmnopqr", // left
-                        "stuvwxyz?"  // bottom
+            @Nested
+            @DisplayName("Anti-clockwise")
+            inner class AntiClockwise {
+
+                @Test
+                fun `can rotate top slice one quarter-turn anti-clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, 1).faces).isEqualTo(
+                        listOf(
+                            "CFIBEHADG", // top
+                            "jklMNOPQR", // front
+                            "JKLVWXYZ!", // right
+                            "STUdefghi", // back
+                            "abcmnopqr", // left
+                            "stuvwxyz?"  // bottom
+                        )
                     )
-                )
+                }
+
+                @Test
+                fun `can rotate top slice two quarter-turns anti-clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, 2).faces).isEqualTo(
+                        listOf(
+                            "IHGFEDCBA", // top
+                            "abcMNOPQR", // front
+                            "jklVWXYZ!", // right
+                            "JKLdefghi", // back
+                            "STUmnopqr", // left
+                            "stuvwxyz?"  // bottom
+                        )
+                    )
+                }
+
+                @Test
+                fun `can rotate top slice three quarter-turns anti clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, 3).faces).isEqualTo(
+                        listOf(
+                            "GDAHEBIFC", // top
+                            "STUMNOPQR", // front
+                            "abcVWXYZ!", // right
+                            "jkldefghi", // back
+                            "JKLmnopqr", // left
+                            "stuvwxyz?"  // bottom
+                        )
+                    )
+                }
+
+                @Test
+                fun `can rotate top slice four quarter-turns anti clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, 4)).isEqualTo(testCube)
+                }
             }
 
-            @Test
-            fun `can rotate top slice two quarter-turns anti-clockwise`() {
-                assertThat(testCube.rotateTopSlice(2).faces).isEqualTo(
-                    listOf(
-                        "IHGFEDCBA", // top
-                        "abcMNOPQR", // front
-                        "jklVWXYZ!", // right
-                        "JKLdefghi", // back
-                        "STUmnopqr", // left
-                        "stuvwxyz?"  // bottom
-                    )
-                )
-            }
+            @Nested
+            @DisplayName("Clockwise")
+            inner class Clockwise {
 
-            @Test
-            fun `can rotate top slice three quarter-turns anti clockwise`() {
-                assertThat(testCube.rotateTopSlice(3).faces).isEqualTo(
-                    listOf(
-                        "GDAHEBIFC", // top
-                        "STUMNOPQR", // front
-                        "abcVWXYZ!", // right
-                        "jkldefghi", // back
-                        "JKLmnopqr", // left
-                        "stuvwxyz?"  // bottom
+                @Test
+                fun `can rotate top slice one quarter-turn clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, -1).faces).isEqualTo(
+                        listOf(
+                            "GDAHEBIFC", // top
+                            "STUMNOPQR", // front
+                            "abcVWXYZ!", // right
+                            "jkldefghi", // back
+                            "JKLmnopqr", // left
+                            "stuvwxyz?"  // bottom
+                        )
                     )
-                )
-            }
+                }
 
-            @Test
-            fun `can rotate top slice four quarter-turns anti clockwise`() {
-                assertThat(testCube.rotateTopSlice(4)).isEqualTo(testCube)
+                @Test
+                fun `can rotate top slice two quarter-turns clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, -2).faces).isEqualTo(
+                        listOf(
+                            "IHGFEDCBA", // top
+                            "abcMNOPQR", // front
+                            "jklVWXYZ!", // right
+                            "JKLdefghi", // back
+                            "STUmnopqr", // left
+                            "stuvwxyz?"  // bottom
+                        )
+                    )
+                }
+
+                @Test
+                fun `can rotate top slice three quarter-turns clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, -3).faces).isEqualTo(
+                        listOf(
+                            "CFIBEHADG", // top
+                            "jklMNOPQR", // front
+                            "JKLVWXYZ!", // right
+                            "STUdefghi", // back
+                            "abcmnopqr", // left
+                            "stuvwxyz?"  // bottom
+                        )
+                    )
+                }
+
+                @Test
+                fun `can rotate top slice four quarter-turns clockwise`() {
+                    assertThat(testCube.rotateSlice(TOP, -4)).isEqualTo(testCube)
+                }
             }
         }
 
         @Nested
-        @DisplayName("Clockwise")
-        inner class Clockwise {
-
+        @DisplayName("Rotating the bottom slice")
+        inner class RotatingTheBottomSlice {
             @Test
-            fun `can rotate top slice one quarter-turn clockwise`() {
-                assertThat(testCube.rotateTopSlice(-1).faces).isEqualTo(
+            fun `can rotate the bottom slice one quarter turn clockwise`() {
+                assertThat(testCube.rotateSlice(BOTTOM, -1).faces).isEqualTo(
                     listOf(
-                        "GDAHEBIFC", // top
-                        "STUMNOPQR", // front
-                        "abcVWXYZ!", // right
-                        "jkldefghi", // back
-                        "JKLmnopqr", // left
-                        "stuvwxyz?"  // bottom
+                        "ABCDEFGHI", // top
+                        "JKLMNOpqr", // front
+                        "STUVWXPQR", // right
+                        "abcdefYZ!", // back
+                        "jklmnoghi", // left
+                        "yvszwt?xu"  // bottom
                     )
                 )
             }
 
             @Test
-            fun `can rotate top slice two quarter-turns clockwise`() {
-                assertThat(testCube.rotateTopSlice(-2).faces).isEqualTo(
+            fun `can rotate the bottom slice one quarter turn anti-clockwise`() {
+                assertThat(testCube.rotateSlice(BOTTOM, 1).faces).isEqualTo(
                     listOf(
-                        "IHGFEDCBA", // top
-                        "abcMNOPQR", // front
-                        "jklVWXYZ!", // right
-                        "JKLdefghi", // back
-                        "STUmnopqr", // left
-                        "stuvwxyz?"  // bottom
+                        "ABCDEFGHI", // top
+                        "JKLMNOYZ!", // front
+                        "STUVWXghi", // right
+                        "abcdefpqr", // back
+                        "jklmnoPQR", // left
+                        "ux?twzsvy"  // bottom
                     )
                 )
-            }
-
-            @Test
-            fun `can rotate top slice three quarter-turns clockwise`() {
-                assertThat(testCube.rotateTopSlice(-3).faces).isEqualTo(
-                    listOf(
-                        "CFIBEHADG", // top
-                        "jklMNOPQR", // front
-                        "JKLVWXYZ!", // right
-                        "STUdefghi", // back
-                        "abcmnopqr", // left
-                        "stuvwxyz?"  // bottom
-                    )
-                )
-            }
-
-            @Test
-            fun `can rotate top slice four quarter-turns clockwise`() {
-                assertThat(testCube.rotateTopSlice(-4)).isEqualTo(testCube)
             }
         }
+
+
     }
 
     @Nested
@@ -140,7 +180,7 @@ internal class CubeTest {
                         "ABCDEFGHI", // front
                         "UX!TWZSVY", // right
                         "?zyxwvuts", // back
-                        "pmjqnkrol", // leftx
+                        "pmjqnkrol", // left
                         "JKLMNOPQR"  // bottom
                     )
                 )
@@ -242,6 +282,57 @@ internal class CubeTest {
             @Test
             fun `can rotate the cube four quarter-turns clockwise about the Y axis`() {
                 assertThat(testCube.rotateY(-4)).isEqualTo(testCube)
+            }
+        }
+
+        @Nested
+        @DisplayName("About the Z Axis")
+        inner class AboutTheZAxis {
+            @Test
+            fun `can rotate the cube one quarter-turn anti-clockwise about the Z axis`() {
+                assertThat(testCube.rotateZ(1).faces).isEqualTo(
+                    listOf(
+                        "UX!TWZSVY", // top
+                        "LORKNQJMP", // front
+                        "ux?twzsvy", // right
+                        "gdahebifc", // back
+                        "CFIBEHADG", // left
+                        "lorknqjmp"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the cube two quarter-turns anti-clockwise about the Z axis`() {
+                assertThat(testCube.rotateZ(2).faces).isEqualTo(
+                    listOf(
+                        "?zyxwvuts", // top
+                        "RQPONMLKJ", // front
+                        "rqponmlkj", // right
+                        "ihgfedcba", // back
+                        "!ZYXWVUTS", // left
+                        "IHGFEDCBA"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the cube one quarter-turn clockwise about the Z axis`() {
+                assertThat(testCube.rotateZ(-1).faces).isEqualTo(
+                    listOf(
+                        "pmjqnkrol", // top
+                        "PMJQNKROL", // front
+                        "GDAHEBIFC", // right
+                        "cfibehadg", // back
+                        "yvszwt?xu", // left
+                        "YVSZWT!XU"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the cube four quarter-turns clockwise about the Z axis`() {
+                assertThat(testCube.rotateZ(-4)).isEqualTo(testCube)
             }
         }
     }

@@ -8,15 +8,15 @@
 
 ### Notes
 
-The state of the cube is represented by a list of six faces. The faces are ordered Top, Front, Right, Back, Left, Bottom. (This is different to the ordering given in the instructions.) If you imagine flattening the faces into a map, the numbering is like this:
+The state of the cube is represented by a list of six faces. The faces are ordered Top, Front, Right, Back, Left, Bottom. (This is different to the ordering given in the instructions.) If you imagine flattening the faces into a map, the numbering is like this (zero indexed):
 
 ```
     ┌───┐
-    │ 1 │
+    │ 0 │
 ┌───┼───┼───┬───┐
-│ 5 │ 2 │ 3 │ 4 │
+│ 4 │ 1 │ 2 │ 3 │
 └───┼───┼───┴───┘
-    │ 6 │
+    │ 5 │
     └───┘
 ```
 

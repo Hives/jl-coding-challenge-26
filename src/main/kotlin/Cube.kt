@@ -1,15 +1,26 @@
-data class Cube(val faces: List<String>) {
-    fun rotateTopSlice(n: Int) = repeatedlyApply(Math.floorMod(n, 4)) {
-            it.antiClockwiseQuarterTurnOfTopSlice()
-        }
+import Face.BOTTOM
+import Face.TOP
 
-    fun rotateX(n: Int) = repeatedlyApply(Math.floorMod(n, 4)) {
+data class Cube(val faces: List<String>) {
+    fun rotateSlice(face: Face, times: Int) = when (face) {
+        is TOP -> rotateTopSlice(times)
+        is BOTTOM -> rotateX(2).rotateTopSlice(times).rotateX(2)
+    }
+
+    fun rotateX(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
         it.antiClockwiseQuarterTurnAboutXAxis()
     }
 
-    fun rotateY(n: Int) = repeatedlyApply(Math.floorMod(n, 4)) {
+    fun rotateY(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
         it.antiClockwiseQuarterTurnAboutYAxis()
     }
+
+    fun rotateZ(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
+        it.antiClockwiseQuarterTurnAboutZAxis()
+    }
+
+    private fun rotateTopSlice(times: Int) =
+        repeatedlyApply(Math.floorMod(times, 4)) { it.antiClockwiseQuarterTurnOfTopSlice() }
 
     private fun antiClockwiseQuarterTurnOfTopSlice() = Cube(
         listOf(
@@ -43,6 +54,17 @@ data class Cube(val faces: List<String>) {
             this.faces[5].quarterTurnRight()
         )
     )
+
+    private fun antiClockwiseQuarterTurnAboutZAxis() = Cube(
+        listOf(
+            this.faces[2].quarterTurnLeft(),
+            this.faces[1].quarterTurnLeft(),
+            this.faces[5].quarterTurnLeft(),
+            this.faces[3].quarterTurnRight(),
+            this.faces[0].quarterTurnLeft(),
+            this.faces[4].quarterTurnLeft()
+        )
+    )
 }
 
 private tailrec fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T {
@@ -62,3 +84,7 @@ private fun String.halfTurn(): String =
 
 private fun String.quarterTurnRight(): String =
     this.repeatedlyApply(3) { it.quarterTurnLeft() }
+
+private fun Cube.translateMike() = listOf(
+    this.faces[1], this.faces[3], this.faces[4], this.faces[2], this.faces[0], this.faces[5].reversed()
+)
