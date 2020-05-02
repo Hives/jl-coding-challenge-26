@@ -1,6 +1,6 @@
 data class Cube(val faces: List<String>) {
-    fun rotateTopSlice(n: Int) = (1..Math.floorMod(n, 4)).fold(this) { cube: Cube, _: Int ->
-            cube.rotateTopSlice90DegreesAntiClockwise()
+    fun rotateTopSlice(n: Int) = repeatedlyApply(Math.floorMod(n, 4)) {
+            it.rotateTopSlice90DegreesAntiClockwise()
         }
 
     private fun rotateTopSlice90DegreesAntiClockwise() = Cube(
@@ -14,6 +14,13 @@ data class Cube(val faces: List<String>) {
         )
     )
 }
+
+private fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T =
+    if (n == 0) {
+        this
+    } else {
+        action(this).repeatedlyApply(n - 1, action)
+    }
 
 private fun String.rotateFaceAntiClockwise(): String =
     "${this[2]}${this[5]}${this[8]}${this[1]}${this[4]}${this[7]}${this[0]}${this[3]}${this[6]}"

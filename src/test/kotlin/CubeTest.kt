@@ -60,6 +60,11 @@ internal class CubeTest {
                 )
             )
         }
+
+        @Test
+        fun `can rotate top slice four quarter-turns anti clockwise`() {
+            assertThat(testCube.rotateTopSlice(4)).isEqualTo(testCube)
+        }
     }
 
     @Nested
@@ -105,6 +110,11 @@ internal class CubeTest {
                     "stuvwxyz?"  // bottom
                 )
             )
+        }
+
+        @Test
+        fun `can rotate top slice four quarter-turns clockwise`() {
+            assertThat(testCube.rotateTopSlice(-4)).isEqualTo(testCube)
         }
     }
 
