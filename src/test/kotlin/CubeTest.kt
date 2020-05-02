@@ -130,10 +130,61 @@ internal class CubeTest {
     inner class RotatingTheCube {
 
         @Nested
+        @DisplayName("About the X Axis")
+        inner class AboutTheXAxis {
+            @Test
+            fun `can rotate the cube one quarter-turn anti-clockwise about the x axis`() {
+                assertThat(testCube.rotateX(1).faces).isEqualTo(
+                    listOf(
+                        "ihgfedcba", // top
+                        "ABCDEFGHI", // front
+                        "UX!TWZSVY", // right
+                        "?zyxwvuts", // back
+                        "pmjqnkrol", // leftx
+                        "JKLMNOPQR"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the cube two quarter-turns anti-clockwise about the x axis`() {
+                assertThat(testCube.rotateX(2).faces).isEqualTo(
+                    listOf(
+                        "stuvwxyz?", // top
+                        "ihgfedcba", // front
+                        "!ZYXWVUTS", // right
+                        "RQPONMLKJ", // back
+                        "rqponmlkj", // left
+                        "ABCDEFGHI"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the cube one quarter-turn clockwise about the x axis`() {
+                assertThat(testCube.rotateX(-1).faces).isEqualTo(
+                    listOf(
+                        "JKLMNOPQR", // top
+                        "stuvwxyz?", // front
+                        "YVSZWT!XU", // right
+                        "IHGFEDCBA", // back
+                        "lorknqjmp", // left
+                        "ihgfedcba"  // bottom
+                    )
+                )
+            }
+
+            @Test
+            fun `can rotate the cube four quarter-turns clockwise about the x axis`() {
+                assertThat(testCube.rotateX(-4)).isEqualTo(testCube)
+            }
+        }
+
+        @Nested
         @DisplayName("About the Y Axis")
         inner class AboutTheYAxis {
             @Test
-            fun `can rotate the cube one quarter-turn anti-clockwise`() {
+            fun `can rotate the cube one quarter-turn anti-clockwise about the Y axis`() {
                 assertThat(testCube.rotateY(1).faces).isEqualTo(
                     listOf(
                         "CFIBEHADG", // top
@@ -147,7 +198,7 @@ internal class CubeTest {
             }
 
             @Test
-            fun `can rotate the cube two quarter-turns anti-clockwise`() {
+            fun `can rotate the cube two quarter-turns anti-clockwise about the Y axis`() {
                 assertThat(testCube.rotateY(2).faces).isEqualTo(
                     listOf(
                         "IHGFEDCBA", // top
@@ -161,7 +212,7 @@ internal class CubeTest {
             }
 
             @Test
-            fun `can rotate the cube three quarter-turns anti-clockwise`() {
+            fun `can rotate the cube three quarter-turns anti-clockwise about the Y axis`() {
                 assertThat(testCube.rotateY(3).faces).isEqualTo(
                     listOf(
                         "GDAHEBIFC", // top
@@ -175,7 +226,7 @@ internal class CubeTest {
             }
 
             @Test
-            fun `can rotate the cube one quarter-turn clockwise`() {
+            fun `can rotate the cube one quarter-turn clockwise about the Y axis`() {
                 assertThat(testCube.rotateY(-1).faces).isEqualTo(
                     listOf(
                         "GDAHEBIFC", // top
@@ -189,7 +240,7 @@ internal class CubeTest {
             }
 
             @Test
-            fun `can rotate the cube four quarter-turns clockwise`() {
+            fun `can rotate the cube four quarter-turns clockwise about the Y axis`() {
                 assertThat(testCube.rotateY(-4)).isEqualTo(testCube)
             }
         }

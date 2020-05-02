@@ -3,13 +3,17 @@ data class Cube(val faces: List<String>) {
             it.antiClockwiseQuarterTurnOfTopSlice()
         }
 
+    fun rotateX(n: Int) = repeatedlyApply(Math.floorMod(n, 4)) {
+        it.antiClockwiseQuarterTurnAboutXAxis()
+    }
+
     fun rotateY(n: Int) = repeatedlyApply(Math.floorMod(n, 4)) {
         it.antiClockwiseQuarterTurnAboutYAxis()
     }
 
     private fun antiClockwiseQuarterTurnOfTopSlice() = Cube(
         listOf(
-            this.faces[0].rotateFaceAntiClockwise(),
+            this.faces[0].quarterTurnLeft(),
             this.faces[4].substring(0..2) + this.faces[1].substring(3..8),
             this.faces[1].substring(0..2) + this.faces[2].substring(3..8),
             this.faces[2].substring(0..2) + this.faces[3].substring(3..8),
@@ -18,14 +22,25 @@ data class Cube(val faces: List<String>) {
         )
     )
 
+    private fun antiClockwiseQuarterTurnAboutXAxis() = Cube(
+        listOf(
+            this.faces[3].halfTurn(),
+            this.faces[0],
+            this.faces[2].quarterTurnLeft(),
+            this.faces[5].halfTurn(),
+            this.faces[4].quarterTurnRight(),
+            this.faces[1]
+        )
+    )
+
     private fun antiClockwiseQuarterTurnAboutYAxis() = Cube(
         listOf(
-            this.faces[0].rotateFaceAntiClockwise(),
+            this.faces[0].quarterTurnLeft(),
             this.faces[4],
             this.faces[1],
             this.faces[2],
             this.faces[3],
-            this.faces[5].rotateFaceClockwise()
+            this.faces[5].quarterTurnRight()
         )
     )
 }
@@ -39,8 +54,11 @@ private tailrec fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T {
     }
 }
 
-private fun String.rotateFaceAntiClockwise(): String =
+private fun String.quarterTurnLeft(): String =
     "${this[2]}${this[5]}${this[8]}${this[1]}${this[4]}${this[7]}${this[0]}${this[3]}${this[6]}"
 
-private fun String.rotateFaceClockwise(): String =
-    this.repeatedlyApply(3) { it.rotateFaceAntiClockwise() }
+private fun String.halfTurn(): String =
+    this.repeatedlyApply(2) { it.quarterTurnLeft() }
+
+private fun String.quarterTurnRight(): String =
+    this.repeatedlyApply(3) { it.quarterTurnLeft() }
