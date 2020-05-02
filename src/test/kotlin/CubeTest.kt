@@ -1,5 +1,4 @@
-import Face.BOTTOM
-import Face.TOP
+import Face.*
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.DisplayName
@@ -162,7 +161,37 @@ internal class CubeTest {
             }
         }
 
+        @Nested
+        @DisplayName("Rotating the right slice")
+        inner class RotatingTheRightSlice {
+            @Test
+            fun `can rotate the right slice one quarter turn clockwise`() {
+                assertThat(testCube.rotateSlice(RIGHT, -1).faces).isEqualTo(
+                    listOf(
+                        "ABLDEOGHR", // top
+                        "JKuMNxPQ?", // front
+                        "YVSZWT!XU", // right
+                        "IbcFefChi", // back
+                        "jklmnopqr", // left
+                        "stgvwdyza"  // bottom
+                    )
+                )
+            }
 
+            @Test
+            fun `can rotate the right slice one quarter turn anti-clockwise`() {
+                assertThat(testCube.rotateSlice(RIGHT, 1).faces).isEqualTo(
+                    listOf(
+                        "ABgDEdGHa", // top
+                        "JKCMNFPQI", // front
+                        "UX!TWZSVY", // right
+                        "?bcxefuhi", // back
+                        "jklmnopqr", // left
+                        "stLvwOyzR"  // bottom
+                    )
+                )
+            }
+        }
     }
 
     @Nested

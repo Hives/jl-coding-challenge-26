@@ -1,10 +1,10 @@
-import Face.BOTTOM
-import Face.TOP
+import Face.*
 
 data class Cube(val faces: List<String>) {
     fun rotateSlice(face: Face, times: Int) = when (face) {
         is TOP -> rotateTopSlice(times)
         is BOTTOM -> rotateX(2).rotateTopSlice(times).rotateX(2)
+        is RIGHT -> rotateZ(1).rotateTopSlice(times).rotateZ(-1)
     }
 
     fun rotateX(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
