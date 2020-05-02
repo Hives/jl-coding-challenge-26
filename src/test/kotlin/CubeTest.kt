@@ -1,4 +1,3 @@
-import Face.*
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.DisplayName
@@ -30,7 +29,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice one quarter-turn anti-clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, 1).faces).isEqualTo(
+                    assertThat(testCube.rotateSlice(Face.TOP, 1).faces).isEqualTo(
                         listOf(
                             "CFIBEHADG", // top
                             "jklMNOPQR", // front
@@ -44,7 +43,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice two quarter-turns anti-clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, 2).faces).isEqualTo(
+                    assertThat(testCube.rotateSlice(Face.TOP, 2).faces).isEqualTo(
                         listOf(
                             "IHGFEDCBA", // top
                             "abcMNOPQR", // front
@@ -58,7 +57,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice three quarter-turns anti clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, 3).faces).isEqualTo(
+                    assertThat(testCube.rotateSlice(Face.TOP, 3).faces).isEqualTo(
                         listOf(
                             "GDAHEBIFC", // top
                             "STUMNOPQR", // front
@@ -72,7 +71,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice four quarter-turns anti clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, 4)).isEqualTo(testCube)
+                    assertThat(testCube.rotateSlice(Face.TOP, 4)).isEqualTo(testCube)
                 }
             }
 
@@ -82,7 +81,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice one quarter-turn clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, -1).faces).isEqualTo(
+                    assertThat(testCube.rotateSlice(Face.TOP, -1).faces).isEqualTo(
                         listOf(
                             "GDAHEBIFC", // top
                             "STUMNOPQR", // front
@@ -96,7 +95,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice two quarter-turns clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, -2).faces).isEqualTo(
+                    assertThat(testCube.rotateSlice(Face.TOP, -2).faces).isEqualTo(
                         listOf(
                             "IHGFEDCBA", // top
                             "abcMNOPQR", // front
@@ -110,7 +109,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice three quarter-turns clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, -3).faces).isEqualTo(
+                    assertThat(testCube.rotateSlice(Face.TOP, -3).faces).isEqualTo(
                         listOf(
                             "CFIBEHADG", // top
                             "jklMNOPQR", // front
@@ -124,7 +123,7 @@ internal class CubeTest {
 
                 @Test
                 fun `can rotate top slice four quarter-turns clockwise`() {
-                    assertThat(testCube.rotateSlice(TOP, -4)).isEqualTo(testCube)
+                    assertThat(testCube.rotateSlice(Face.TOP, -4)).isEqualTo(testCube)
                 }
             }
         }
@@ -134,7 +133,7 @@ internal class CubeTest {
         inner class RotatingTheBottomSlice {
             @Test
             fun `can rotate the bottom slice one quarter turn clockwise`() {
-                assertThat(testCube.rotateSlice(BOTTOM, -1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.BOTTOM, -1).faces).isEqualTo(
                     listOf(
                         "ABCDEFGHI", // top
                         "JKLMNOpqr", // front
@@ -148,7 +147,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the bottom slice one quarter turn anti-clockwise`() {
-                assertThat(testCube.rotateSlice(BOTTOM, 1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.BOTTOM, 1).faces).isEqualTo(
                     listOf(
                         "ABCDEFGHI", // top
                         "JKLMNOYZ!", // front
@@ -166,7 +165,7 @@ internal class CubeTest {
         inner class RotatingTheRightSlice {
             @Test
             fun `can rotate the right slice one quarter turn clockwise`() {
-                assertThat(testCube.rotateSlice(RIGHT, -1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.RIGHT, -1).faces).isEqualTo(
                     listOf(
                         "ABLDEOGHR", // top
                         "JKuMNxPQ?", // front
@@ -180,7 +179,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the right slice one quarter turn anti-clockwise`() {
-                assertThat(testCube.rotateSlice(RIGHT, 1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.RIGHT, 1).faces).isEqualTo(
                     listOf(
                         "ABgDEdGHa", // top
                         "JKCMNFPQI", // front
@@ -198,7 +197,7 @@ internal class CubeTest {
         inner class RotatingTheLeftSlice {
             @Test
             fun `can rotate the left slice one quarter turn clockwise`() {
-                assertThat(testCube.rotateSlice(LEFT, -1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.LEFT, -1).faces).isEqualTo(
                     listOf(
                         "iBCfEFcHI", // top
                         "AKLDNOGQR", // front
@@ -212,7 +211,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the left slice one quarter turn anti-clockwise`() {
-                assertThat(testCube.rotateSlice(LEFT, 1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.LEFT, 1).faces).isEqualTo(
                     listOf(
                         "JBCMEFPHI", // top
                         "sKLvNOyQR", // front
@@ -230,7 +229,7 @@ internal class CubeTest {
         inner class RotatingTheFrontSlice {
             @Test
             fun `can rotate the front slice one quarter turn clockwise`() {
-                assertThat(testCube.rotateSlice(FRONT, -1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.FRONT, -1).faces).isEqualTo(
                     listOf(
                         "ABCDEFrol", // top
                         "PMJQNKROL", // front
@@ -244,7 +243,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the front slice one quarter turn anti-clockwise`() {
-                assertThat(testCube.rotateSlice(FRONT, 1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.FRONT, 1).faces).isEqualTo(
                     listOf(
                         "ABCDEFSVY", // top
                         "LORKNQJMP", // front
@@ -262,7 +261,7 @@ internal class CubeTest {
         inner class RotatingTheBackSlice {
             @Test
             fun `can rotate the back slice one quarter turn clockwise`() {
-                assertThat(testCube.rotateSlice(BACK, -1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.BACK, -1).faces).isEqualTo(
                     listOf(
                         "UX!DEFGHI", // top
                         "JKLMNOPQR", // front
@@ -276,7 +275,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the back slice one quarter turn anti-clockwise`() {
-                assertThat(testCube.rotateSlice(BACK, 1).faces).isEqualTo(
+                assertThat(testCube.rotateSlice(Face.BACK, 1).faces).isEqualTo(
                     listOf(
                         "pmjDEFGHI", // top
                         "JKLMNOPQR", // front
@@ -299,7 +298,7 @@ internal class CubeTest {
         inner class AboutTheXAxis {
             @Test
             fun `can rotate the cube one quarter-turn anti-clockwise about the x axis`() {
-                assertThat(testCube.rotateX(1).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.X, 1).faces).isEqualTo(
                     listOf(
                         "ihgfedcba", // top
                         "ABCDEFGHI", // front
@@ -313,7 +312,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube two quarter-turns anti-clockwise about the x axis`() {
-                assertThat(testCube.rotateX(2).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.X, 2).faces).isEqualTo(
                     listOf(
                         "stuvwxyz?", // top
                         "ihgfedcba", // front
@@ -327,7 +326,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube one quarter-turn clockwise about the x axis`() {
-                assertThat(testCube.rotateX(-1).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.X, -1).faces).isEqualTo(
                     listOf(
                         "JKLMNOPQR", // top
                         "stuvwxyz?", // front
@@ -341,7 +340,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube four quarter-turns clockwise about the x axis`() {
-                assertThat(testCube.rotateX(-4)).isEqualTo(testCube)
+                assertThat(testCube.rotateCube(Axis.X, -4)).isEqualTo(testCube)
             }
         }
 
@@ -350,7 +349,7 @@ internal class CubeTest {
         inner class AboutTheYAxis {
             @Test
             fun `can rotate the cube one quarter-turn anti-clockwise about the Y axis`() {
-                assertThat(testCube.rotateY(1).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Y, 1).faces).isEqualTo(
                     listOf(
                         "CFIBEHADG", // top
                         "jklmnopqr", // front
@@ -364,7 +363,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube two quarter-turns anti-clockwise about the Y axis`() {
-                assertThat(testCube.rotateY(2).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Y, 2).faces).isEqualTo(
                     listOf(
                         "IHGFEDCBA", // top
                         "abcdefghi", // front
@@ -378,7 +377,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube three quarter-turns anti-clockwise about the Y axis`() {
-                assertThat(testCube.rotateY(3).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Y, 3).faces).isEqualTo(
                     listOf(
                         "GDAHEBIFC", // top
                         "STUVWXYZ!", // front
@@ -392,7 +391,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube one quarter-turn clockwise about the Y axis`() {
-                assertThat(testCube.rotateY(-1).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Y, -1).faces).isEqualTo(
                     listOf(
                         "GDAHEBIFC", // top
                         "STUVWXYZ!", // front
@@ -406,7 +405,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube four quarter-turns clockwise about the Y axis`() {
-                assertThat(testCube.rotateY(-4)).isEqualTo(testCube)
+                assertThat(testCube.rotateCube(Axis.Y, -4)).isEqualTo(testCube)
             }
         }
 
@@ -415,7 +414,7 @@ internal class CubeTest {
         inner class AboutTheZAxis {
             @Test
             fun `can rotate the cube one quarter-turn anti-clockwise about the Z axis`() {
-                assertThat(testCube.rotateZ(1).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Z, 1).faces).isEqualTo(
                     listOf(
                         "UX!TWZSVY", // top
                         "LORKNQJMP", // front
@@ -429,7 +428,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube two quarter-turns anti-clockwise about the Z axis`() {
-                assertThat(testCube.rotateZ(2).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Z, 2).faces).isEqualTo(
                     listOf(
                         "?zyxwvuts", // top
                         "RQPONMLKJ", // front
@@ -443,7 +442,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube one quarter-turn clockwise about the Z axis`() {
-                assertThat(testCube.rotateZ(-1).faces).isEqualTo(
+                assertThat(testCube.rotateCube(Axis.Z, -1).faces).isEqualTo(
                     listOf(
                         "pmjqnkrol", // top
                         "PMJQNKROL", // front
@@ -457,7 +456,7 @@ internal class CubeTest {
 
             @Test
             fun `can rotate the cube four quarter-turns clockwise about the Z axis`() {
-                assertThat(testCube.rotateZ(-4)).isEqualTo(testCube)
+                assertThat(testCube.rotateCube(Axis.Z, -4)).isEqualTo(testCube)
             }
         }
     }

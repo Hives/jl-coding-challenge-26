@@ -1,40 +1,35 @@
-import Face.*
-
 data class Cube(val faces: List<String>) {
-    fun rotateSlice(face: Face, times: Int) = when (face) {
-        TOP -> rotateTopSlice(times)
-        BOTTOM -> rotateX(2).rotateTopSlice(times).rotateX(2)
-        RIGHT -> rotateZ(1).rotateTopSlice(times).rotateZ(-1)
-        LEFT -> rotateZ(-1).rotateTopSlice(times).rotateZ(1)
-        FRONT -> rotateX(-1).rotateTopSlice(times).rotateX(1)
-        BACK -> rotateX(1).rotateTopSlice(times).rotateX(-1)
+    fun rotateSlice(face: Face, times: Int) =
+        applyRotation(moveFaceToTop(face))
+            .rotateTopSlice(times)
+            .applyRotation(moveFaceToTop(face).inverse())
+
+    fun rotateCube(axis: Axis, times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
+        it.antiClockwiseQuarterTurnAround(axis)
     }
 
-    fun rotateX(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
-        it.antiClockwiseQuarterTurnAboutXAxis()
+    private fun applyRotation(rotation: Rotation) = rotateCube(rotation.axis, rotation.times)
+
+    private fun moveFaceToTop(face: Face) = when (face) {
+        Face.TOP -> Rotation(Axis.X, 0)
+        Face.BOTTOM -> Rotation(Axis.X, 2)
+        Face.RIGHT -> Rotation(Axis.Z, 1)
+        Face.LEFT -> Rotation(Axis.Z, -1)
+        Face.FRONT -> Rotation(Axis.X, -1)
+        Face.BACK -> Rotation(Axis.X, 1)
     }
 
-    fun rotateY(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
-        it.antiClockwiseQuarterTurnAboutYAxis()
+    private fun antiClockwiseQuarterTurnAround(axis: Axis): Cube = when (axis) {
+        Axis.X -> {
+            this.antiClockwiseQuarterTurnAboutXAxis()
+        }
+        Axis.Y -> {
+            this.antiClockwiseQuarterTurnAboutYAxis()
+        }
+        Axis.Z -> {
+            this.antiClockwiseQuarterTurnAboutZAxis()
+        }
     }
-
-    fun rotateZ(times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
-        it.antiClockwiseQuarterTurnAboutZAxis()
-    }
-
-    private fun rotateTopSlice(times: Int) =
-        repeatedlyApply(Math.floorMod(times, 4)) { it.antiClockwiseQuarterTurnOfTopSlice() }
-
-    private fun antiClockwiseQuarterTurnOfTopSlice() = Cube(
-        listOf(
-            this.faces[0].quarterTurnLeft(),
-            this.faces[4].substring(0..2) + this.faces[1].substring(3..8),
-            this.faces[1].substring(0..2) + this.faces[2].substring(3..8),
-            this.faces[2].substring(0..2) + this.faces[3].substring(3..8),
-            this.faces[3].substring(0..2) + this.faces[4].substring(3..8),
-            this.faces[5]
-        )
-    )
 
     private fun antiClockwiseQuarterTurnAboutXAxis() = Cube(
         listOf(
@@ -68,15 +63,20 @@ data class Cube(val faces: List<String>) {
             this.faces[4].quarterTurnLeft()
         )
     )
-}
 
-private tailrec fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T {
-    if (n < 0) throw Exception("number of applications must be positive")
-    return if (n == 0) {
-        this
-    } else {
-        action(this).repeatedlyApply(n - 1, action)
-    }
+    private fun rotateTopSlice(times: Int) =
+        repeatedlyApply(Math.floorMod(times, 4)) { it.antiClockwiseQuarterTurnOfTopSlice() }
+
+    private fun antiClockwiseQuarterTurnOfTopSlice() = Cube(
+        listOf(
+            this.faces[0].quarterTurnLeft(),
+            this.faces[4].substring(0..2) + this.faces[1].substring(3..8),
+            this.faces[1].substring(0..2) + this.faces[2].substring(3..8),
+            this.faces[2].substring(0..2) + this.faces[3].substring(3..8),
+            this.faces[3].substring(0..2) + this.faces[4].substring(3..8),
+            this.faces[5]
+        )
+    )
 }
 
 private fun String.quarterTurnLeft(): String =
@@ -87,6 +87,19 @@ private fun String.halfTurn(): String =
 
 private fun String.quarterTurnRight(): String =
     this.repeatedlyApply(3) { it.quarterTurnLeft() }
+
+private data class Rotation(val axis: Axis, val times: Int) {
+    fun inverse() = Rotation(axis, -times)
+}
+
+private tailrec fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T {
+    if (n < 0) throw Exception("number of applications must be positive")
+    return if (n == 0) {
+        this
+    } else {
+        action(this).repeatedlyApply(n - 1, action)
+    }
+}
 
 private fun Cube.translateMike() = listOf(
     this.faces[1], this.faces[3], this.faces[4], this.faces[2], this.faces[0], this.faces[5].reversed()
