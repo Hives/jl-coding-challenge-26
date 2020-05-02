@@ -17,42 +17,95 @@ internal class CubeTest {
     )
 
     @Nested
-    @DisplayName("Rotating the top slice")
-    inner class RotatingTheTopSlice {
+    @DisplayName("Rotating the top slice anti-clockwise")
+    inner class RotatingTheTopSliceAntiClockwise {
         @Test
-        fun `can rotate top slice 90 degrees anticlockwise`() {
-            assertThat(testCube.rotateTopSlice90DegreesAntiClockwise().faces).isEqualTo(listOf(
-                "CFIBEHADG", // top
-                "jklMNOPQR", // front
-                "JKLVWXYZ!", // right
-                "STUdefghi", // back
-                "abcmnopqr", // left
-                "stuvwxyz?"  // bottom
-            ))
+        fun `can rotate top slice one quarter-turn anti-clockwise`() {
+            assertThat(testCube.rotateTopSlice(1).faces).isEqualTo(
+                listOf(
+                    "CFIBEHADG", // top
+                    "jklMNOPQR", // front
+                    "JKLVWXYZ!", // right
+                    "STUdefghi", // back
+                    "abcmnopqr", // left
+                    "stuvwxyz?"  // bottom
+                )
+            )
         }
 
         @Test
-        fun `can rotate top slice 180 degrees`() {
-            assertThat(testCube.rotateTopSlice180Degrees().faces).isEqualTo(listOf(
-                "IHGFEDCBA", // top
-                "abcMNOPQR", // front
-                "jklVWXYZ!", // right
-                "JKLdefghi", // back
-                "STUmnopqr", // left
-                "stuvwxyz?"  // bottom
-            ))
+        fun `can rotate top slice two quarter-turns anti-clockwise`() {
+            assertThat(testCube.rotateTopSlice(2).faces).isEqualTo(
+                listOf(
+                    "IHGFEDCBA", // top
+                    "abcMNOPQR", // front
+                    "jklVWXYZ!", // right
+                    "JKLdefghi", // back
+                    "STUmnopqr", // left
+                    "stuvwxyz?"  // bottom
+                )
+            )
         }
 
         @Test
-        fun `can rotate top slice 90 degrees clockwise`() {
-            assertThat(testCube.rotateTopSlice90DegreesClockwise().faces).isEqualTo(listOf(
-                "GDAHEBIFC", // top
-                "STUMNOPQR", // front
-                "abcVWXYZ!", // right
-                "jkldefghi", // back
-                "JKLmnopqr", // left
-                "stuvwxyz?"  // bottom
-            ))
+        fun `can rotate top slice three quarter-turns anti clockwise`() {
+            assertThat(testCube.rotateTopSlice(3).faces).isEqualTo(
+                listOf(
+                    "GDAHEBIFC", // top
+                    "STUMNOPQR", // front
+                    "abcVWXYZ!", // right
+                    "jkldefghi", // back
+                    "JKLmnopqr", // left
+                    "stuvwxyz?"  // bottom
+                )
+            )
         }
     }
+
+    @Nested
+    @DisplayName("Rotating the top slice clockwise")
+    inner class RotatingTheTopSliceClockwise {
+        @Test
+        fun `can rotate top slice one quarter-turn clockwise`() {
+            assertThat(testCube.rotateTopSlice(-1).faces).isEqualTo(
+                listOf(
+                    "GDAHEBIFC", // top
+                    "STUMNOPQR", // front
+                    "abcVWXYZ!", // right
+                    "jkldefghi", // back
+                    "JKLmnopqr", // left
+                    "stuvwxyz?"  // bottom
+                )
+            )
+        }
+
+        @Test
+        fun `can rotate top slice two quarter-turns clockwise`() {
+            assertThat(testCube.rotateTopSlice(-2).faces).isEqualTo(
+                listOf(
+                    "IHGFEDCBA", // top
+                    "abcMNOPQR", // front
+                    "jklVWXYZ!", // right
+                    "JKLdefghi", // back
+                    "STUmnopqr", // left
+                    "stuvwxyz?"  // bottom
+                )
+            )
+        }
+
+        @Test
+        fun `can rotate top slice three quarter-turns clockwise`() {
+            assertThat(testCube.rotateTopSlice(-3).faces).isEqualTo(
+                listOf(
+                    "CFIBEHADG", // top
+                    "jklMNOPQR", // front
+                    "JKLVWXYZ!", // right
+                    "STUdefghi", // back
+                    "abcmnopqr", // left
+                    "stuvwxyz?"  // bottom
+                )
+            )
+        }
+    }
+
 }

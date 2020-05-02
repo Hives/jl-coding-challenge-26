@@ -1,5 +1,9 @@
 data class Cube(val faces: List<String>) {
-    fun rotateTopSlice90DegreesAntiClockwise() = Cube(
+    fun rotateTopSlice(n: Int) = (1..Math.floorMod(n, 4)).fold(this) { cube: Cube, _: Int ->
+            cube.rotateTopSlice90DegreesAntiClockwise()
+        }
+
+    private fun rotateTopSlice90DegreesAntiClockwise() = Cube(
         listOf(
             this.faces[0].rotateFaceAntiClockwise(),
             this.faces[4].substring(0..2) + this.faces[1].substring(3..8),
@@ -9,15 +13,6 @@ data class Cube(val faces: List<String>) {
             this.faces[5]
         )
     )
-
-    fun rotateTopSlice180Degrees() = this
-        .rotateTopSlice90DegreesAntiClockwise()
-        .rotateTopSlice90DegreesAntiClockwise()
-
-    fun rotateTopSlice90DegreesClockwise() = this
-        .rotateTopSlice90DegreesAntiClockwise()
-        .rotateTopSlice90DegreesAntiClockwise()
-        .rotateTopSlice90DegreesAntiClockwise()
 }
 
 private fun String.rotateFaceAntiClockwise(): String =
