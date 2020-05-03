@@ -1,14 +1,14 @@
 data class Cube(val faces: List<String>) {
-    fun rotateSlice(face: Face, times: Int) =
+
+    fun rotateSlice(face: Face, quarterTurns: Int) =
         applyRotation(moveFaceToTop(face))
-            .rotateTopSlice(times)
-            .applyRotation(moveFaceToTop(face).inverse())
+            .rotateTopSlice(quarterTurns)
+            .applyRotation(moveFaceToTop(face).inverse)
 
-    fun rotateCube(axis: Axis, times: Int) = repeatedlyApply(Math.floorMod(times, 4)) {
-        it.antiClockwiseQuarterTurnAround(axis)
-    }
+    fun rotateCube(axis: Axis, quarterTurns: Int) =
+        repeatedlyApply(Math.floorMod(quarterTurns, 4)) { it.antiClockwiseQuarterTurnAround(axis) }
 
-    private fun applyRotation(rotation: Rotation) = rotateCube(rotation.axis, rotation.times)
+    private fun applyRotation(rotation: Rotation) = rotateCube(rotation.axis, rotation.quarterTurns)
 
     private fun moveFaceToTop(face: Face) = when (face) {
         Face.TOP -> Rotation(Axis.X, 0)
@@ -64,8 +64,8 @@ data class Cube(val faces: List<String>) {
         )
     )
 
-    private fun rotateTopSlice(times: Int) =
-        repeatedlyApply(Math.floorMod(times, 4)) { it.antiClockwiseQuarterTurnOfTopSlice() }
+    private fun rotateTopSlice(quarterTurns: Int) =
+        repeatedlyApply(Math.floorMod(quarterTurns, 4)) { it.antiClockwiseQuarterTurnOfTopSlice() }
 
     private fun antiClockwiseQuarterTurnOfTopSlice() = Cube(
         listOf(
@@ -88,8 +88,9 @@ private fun String.halfTurn(): String =
 private fun String.quarterTurnRight(): String =
     this.repeatedlyApply(3) { it.quarterTurnLeft() }
 
-private data class Rotation(val axis: Axis, val times: Int) {
-    fun inverse() = Rotation(axis, -times)
+private data class Rotation(val axis: Axis, val quarterTurns: Int) {
+    val inverse
+        get() = Rotation(axis, -quarterTurns)
 }
 
 private tailrec fun <T> T.repeatedlyApply(n: Int, action: (T) -> T): T {
