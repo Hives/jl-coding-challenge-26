@@ -6,7 +6,9 @@ data class Cube(val faces: List<String>) {
             .applyRotation(moveFaceToTop(face).inverse)
 
     fun rotateCube(axis: Axis, quarterTurns: Int) =
-        repeatedlyApply(Math.floorMod(quarterTurns, 4)) { it.antiClockwiseQuarterTurnAround(axis) }
+        repeatedlyApply(translateToAntiClockwise(quarterTurns)) { it.antiClockwiseQuarterTurnAround(axis) }
+
+    private fun translateToAntiClockwise(quarterTurns: Int) = Math.floorMod(quarterTurns, 4)
 
     private fun applyRotation(rotation: Rotation) = rotateCube(rotation.axis, rotation.quarterTurns)
 
@@ -65,7 +67,7 @@ data class Cube(val faces: List<String>) {
     )
 
     private fun rotateTopFace(quarterTurns: Int) =
-        repeatedlyApply(Math.floorMod(quarterTurns, 4)) { it.antiClockwiseQuarterTurnOfTopFace() }
+        repeatedlyApply(translateToAntiClockwise(quarterTurns)) { it.antiClockwiseQuarterTurnOfTopFace() }
 
     private fun antiClockwiseQuarterTurnOfTopFace() = Cube(
         listOf(
