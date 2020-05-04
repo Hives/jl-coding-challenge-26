@@ -5,19 +5,21 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class CubeTest {
-//            ┌───────┐
-//            │ A B C │
-//            │ D E F │
-//            │ G H I │
-//    ┌───────┼───────┼───────┬───────┐
-//    │ j k l │ J K L │ S T U │ a b c │
-//    │ m n o │ M N O │ V W X │ d e f │
-//    │ p q r │ P Q R │ Y Z ! │ g h i │
-//    └───────┼───────┼───────┴───────┘
-//            │ s t u │
-//            │ v w x │
-//            │ y z ? │
-//            └───────┘
+
+    // testCube:
+    //            ┌───────┐
+    //            │ A B C │
+    //            │ D E F │
+    //            │ G H I │
+    //    ┌───────┼───────┼───────┬───────┐
+    //    │ j k l │ J K L │ S T U │ a b c │
+    //    │ m n o │ M N O │ V W X │ d e f │
+    //    │ p q r │ P Q R │ Y Z ! │ g h i │
+    //    └───────┼───────┼───────┴───────┘
+    //            │ s t u │
+    //            │ v w x │
+    //            │ y z ? │
+    //            └───────┘
 
     private val testCube = Cube(
         listOf(

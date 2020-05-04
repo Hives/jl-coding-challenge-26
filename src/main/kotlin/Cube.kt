@@ -22,15 +22,9 @@ data class Cube(val faces: List<String>) {
     }
 
     private fun quarterTurnCCWAbout(axis: Axis): Cube = when (axis) {
-        Axis.X -> {
-            this.quarterTurnCCWAboutXAxis()
-        }
-        Axis.Y -> {
-            this.quarterTurnCCWAboutYAxis()
-        }
-        Axis.Z -> {
-            this.quarterTurnCCWAboutZAxis()
-        }
+        Axis.X -> this.quarterTurnCCWAboutXAxis()
+        Axis.Y -> this.quarterTurnCCWAboutYAxis()
+        Axis.Z -> this.quarterTurnCCWAboutZAxis()
     }
 
     private fun quarterTurnCCWAboutXAxis() = Cube(
